@@ -1,4 +1,4 @@
-import CountriesFilter from "@/components/CountriesFilter";
+import CountriesSearch from "@/components/CountriesSearch";
 import HeroBanner from "@/components/HeroBanner";
 import { ModeToggle } from "@/components/ModeToggle";
 
@@ -16,7 +16,7 @@ function page() {
       <div className="relative z-20 mx-auto -mt-28 max-w-7xl px-4">
         <div className="bg-muted flex flex-col rounded-lg border px-4 py-6 shadow-lg lg:flex-row">
           {/* SETTINGS PANEL */}
-          <CountriesFilter />
+          <CountriesSearch />
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import SearchInput from "@/components/SearchInput";
 
-function CountriesFilter() {
+function CountriesSearch() {
   return (
     <div className="flex flex-col gap-6">
       <p className="text-foreground font-semibold">Found X countries</p>
@@ -9,4 +9,4 @@ function CountriesFilter() {
   );
 }
 
-export default CountriesFilter;
+export default CountriesSearch;
