@@ -21,7 +21,7 @@ function page() {
           alt="Aerial view of Earth at night"
         />
 
-        <p className="text-foreground z-10 flex gap-1.5 text-2xl font-bold md:text-3xl">
+        <p className="text-foreground absolute top-14 z-10 flex gap-1.5 text-2xl font-bold md:text-3xl">
           <Image
             src={logo}
             width={24}
