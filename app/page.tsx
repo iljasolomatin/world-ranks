@@ -1,36 +1,23 @@
-import Image from "next/image";
-import heroImage from "@/public/hero-image.jpg";
-import logo from "@/public/logo.svg";
-
+import CountriesFilter from "@/components/CountriesFilter";
+import HeroBanner from "@/components/HeroBanner";
 import { ModeToggle } from "@/components/ModeToggle";
 
 function page() {
   return (
     <div className="bg-background min-h-screen">
+      {/* THEME SWITCHER */}
       <div className="absolute top-4 right-4 z-10">
         <ModeToggle />
       </div>
 
-      <div className="relative flex h-[300px] w-full items-center justify-center overflow-hidden bg-black">
-        <Image
-          src={heroImage}
-          fill
-          quality={80}
-          placeholder="blur"
-          className="mt-28 object-cover object-center"
-          alt="Aerial view of Earth at night"
-        />
+      <HeroBanner />
 
-        <p className="text-foreground absolute top-14 z-10 flex gap-1.5 text-2xl font-bold md:text-3xl">
-          <Image
-            src={logo}
-            width={24}
-            height={24}
-            alt="Logo"
-            className="inline-block"
-          />
-          World <span className="text-primary">Ranks</span>
-        </p>
+      {/* FLOATING CARD */}
+      <div className="relative z-20 mx-auto -mt-28 max-w-7xl px-4">
+        <div className="bg-muted flex flex-col rounded-lg border px-4 py-6 shadow-lg lg:flex-row">
+          {/* SETTINGS PANEL */}
+          <CountriesFilter />
+        </div>
       </div>
     </div>
   );
