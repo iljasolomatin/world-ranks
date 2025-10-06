@@ -1,22 +1,23 @@
 import CountriesSearch from "@/components/CountriesSearch";
-import HeroBanner from "@/components/HeroBanner";
-import { ModeToggle } from "@/components/ModeToggle";
+import SortSelect from "@/components/SortSelect";
 
 function page() {
   return (
-    <div className="bg-background min-h-screen">
-      {/* THEME SWITCHER */}
-      <div className="absolute top-4 right-4 z-10">
-        <ModeToggle />
-      </div>
+    // FLOATING CARD
+    <div className="relative z-20 mx-auto -mt-28 max-w-7xl px-4">
+      {/* DIV CONTAINS 2 SECTIONS: Search and Sort+Results */}
+      <div className="bg-muted grid grid-cols-1 gap-y-4 rounded-lg border px-4 py-6 shadow-lg sm:grid-cols-[1fr_2fr] sm:gap-x-4">
+        <CountriesSearch className="sm:col-span-2" />
 
-      <HeroBanner />
+        {/* DIV FOR SORT, FILTERS */}
+        <div className="flex flex-col gap-4">
+          <SortSelect />
+          <p>Region</p>
+          <p>Status</p>
+        </div>
 
-      {/* FLOATING CARD */}
-      <div className="relative z-20 mx-auto -mt-28 max-w-7xl px-4">
-        <div className="bg-muted flex flex-col rounded-lg border px-4 py-6 shadow-lg lg:flex-row">
-          {/* SETTINGS PANEL */}
-          <CountriesSearch />
+        <div className="sm:col-start-2">
+          <p>RESULTS</p>
         </div>
       </div>
     </div>

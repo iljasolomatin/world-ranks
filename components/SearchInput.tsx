@@ -16,7 +16,7 @@ function SearchInput({
   onChange,
 }: SearchInputProps) {
   return (
-    <div className="relative">
+    <div className="relative w-full max-w-96">
       <Image
         src={searchIcon}
         width={18}
