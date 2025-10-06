@@ -1,5 +1,7 @@
 import CountriesSearch from "@/components/CountriesSearch";
+import RegionFilter from "@/components/RegionFilter";
 import SortSelect from "@/components/SortSelect";
+import StatusFilter from "@/components/StatusFilter";
 
 function page() {
   return (
@@ -12,8 +14,8 @@ function page() {
         {/* DIV FOR SORT, FILTERS */}
         <div className="flex flex-col gap-4">
           <SortSelect />
-          <p>Region</p>
-          <p>Status</p>
+          <RegionFilter />
+          <StatusFilter />
         </div>
 
         <div className="sm:col-start-2">

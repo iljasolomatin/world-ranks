@@ -11,7 +11,7 @@ function SortSelect() {
   return (
     <Select name="sortBy">
       <Label htmlFor="sortBy">Sort by</Label>
-      <SelectTrigger className="w-full max-w-96 sm:max-w-full">
+      <SelectTrigger className="mb-4 w-full max-w-96 sm:max-w-full">
         <SelectValue placeholder="Population" />
       </SelectTrigger>
       <SelectContent>
