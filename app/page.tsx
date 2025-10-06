@@ -1,4 +1,5 @@
 import CountriesSearch from "@/components/CountriesSearch";
+import CountriesTable from "@/components/CountriesTable";
 import RegionFilter from "@/components/RegionFilter";
 import SortSelect from "@/components/SortSelect";
 import StatusFilter from "@/components/StatusFilter";
@@ -19,7 +20,7 @@ function page() {
         </div>
 
         <div className="sm:col-start-2">
-          <p>RESULTS</p>
+          <CountriesTable />
         </div>
       </div>
     </div>
