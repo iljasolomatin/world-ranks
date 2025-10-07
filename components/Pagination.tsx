@@ -8,30 +8,36 @@ import { useCallback } from "react";
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  currentParams: CountriesParams;
+  onPageChange?: (page: number) => void;
 }
 
 export default function Pagination({
   currentPage,
   totalPages,
-  currentParams,
+  onPageChange,
 }: PaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const handlePageChange = useCallback(
     (page: number) => {
-      const params = new URLSearchParams(searchParams);
-
-      if (page === 1) {
-        params.delete("page");
+      if (onPageChange) {
+        // Use callback for instant updates
+        onPageChange(page);
       } else {
-        params.set("page", page.toString());
-      }
+        // Fallback to URL navigation
+        const params = new URLSearchParams(searchParams);
 
-      router.push(`?${params.toString()}`);
+        if (page === 1) {
+          params.delete("page");
+        } else {
+          params.set("page", page.toString());
+        }
+
+        router.push(`?${params.toString()}`);
+      }
     },
-    [router, searchParams],
+    [onPageChange, router, searchParams],
   );
 
   if (totalPages <= 1) return null;

@@ -12,28 +12,33 @@ import { useCallback } from "react";
 
 interface StatusFilterProps {
   currentParams: CountriesParams;
+  onParamsChange?: (newParams: Partial<CountriesParams>) => void;
 }
 
-function StatusFilter({ currentParams }: StatusFilterProps) {
+function StatusFilter({ currentParams, onParamsChange }: StatusFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const handleStatusChange = useCallback(
     (status: StatusFilterType) => {
-      const params = new URLSearchParams(searchParams);
-
-      if (status === "all") {
-        params.delete("status");
+      if (onParamsChange) {
+        // Use callback for instant updates
+        onParamsChange({ status });
       } else {
-        params.set("status", status);
+        // Fallback to URL navigation
+        const params = new URLSearchParams(searchParams);
+
+        if (status === "all") {
+          params.delete("status");
+        } else {
+          params.set("status", status);
+        }
+
+        params.delete("page");
+        router.push(`?${params.toString()}`);
       }
-
-      // Reset to page 1 when status changes
-      params.delete("page");
-
-      router.push(`?${params.toString()}`);
     },
-    [router, searchParams],
+    [onParamsChange, router, searchParams],
   );
 
   const getStatusLabel = (status: StatusFilterType) => {

@@ -10,31 +10,37 @@ import { useCallback } from "react";
 interface SearchInputProps {
   placeholder?: string;
   currentParams: CountriesParams;
+  onParamsChange?: (newParams: Partial<CountriesParams>) => void;
 }
 
 function SearchInput({
   placeholder = "Search by Name, Region, Subregion",
   currentParams,
+  onParamsChange,
 }: SearchInputProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const handleSearch = useCallback(
     (searchTerm: string) => {
-      const params = new URLSearchParams(searchParams);
-
-      if (searchTerm) {
-        params.set("search", searchTerm);
+      if (onParamsChange) {
+        // Use callback for instant updates
+        onParamsChange({ search: searchTerm });
       } else {
-        params.delete("search");
+        // Fallback to URL navigation
+        const params = new URLSearchParams(searchParams);
+
+        if (searchTerm) {
+          params.set("search", searchTerm);
+        } else {
+          params.delete("search");
+        }
+
+        params.delete("page");
+        router.push(`?${params.toString()}`);
       }
-
-      // Reset to page 1 when searching
-      params.delete("page");
-
-      router.push(`?${params.toString()}`);
     },
-    [router, searchParams],
+    [onParamsChange, router, searchParams],
   );
 
   return (

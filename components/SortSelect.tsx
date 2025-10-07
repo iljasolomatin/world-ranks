@@ -19,28 +19,28 @@ import { useCallback } from "react";
 
 interface SortSelectProps {
   currentParams: CountriesParams;
+  onParamsChange?: (newParams: Partial<CountriesParams>) => void;
 }
 
-function SortSelect({ currentParams }: SortSelectProps) {
+function SortSelect({ currentParams, onParamsChange }: SortSelectProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const handleSortChange = useCallback(
     (value: string) => {
-      const params = new URLSearchParams(searchParams);
-
       // Parse the value (format: "field:order")
       const [sortBy, sortOrder] = value.split(":") as [SortField, SortOrder];
 
-      params.set("sortBy", sortBy);
-      params.set("sortOrder", sortOrder);
-
-      // Reset to page 1 when sorting changes
-      params.delete("page");
-
-      router.push(`?${params.toString()}`);
+      if (onParamsChange) {
+        // Use callback for instant updates
+        onParamsChange({ sortBy, sortOrder });
+      } else {
+        // Fallback to URL navigation
+        const params = new URLSearchParams(searchParams);
+        router.push(`?${params.toString()}`);
+      }
     },
-    [router, searchParams],
+    [onParamsChange, router, searchParams],
   );
 
   const currentValue = `${currentParams.sortBy}:${currentParams.sortOrder}`;

@@ -12,28 +12,33 @@ import { useCallback } from "react";
 
 interface RegionFilterProps {
   currentParams: CountriesParams;
+  onParamsChange?: (newParams: Partial<CountriesParams>) => void;
 }
 
-function RegionFilter({ currentParams }: RegionFilterProps) {
+function RegionFilter({ currentParams, onParamsChange }: RegionFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const handleRegionChange = useCallback(
     (region: RegionFilterType) => {
-      const params = new URLSearchParams(searchParams);
-
-      if (region === "all") {
-        params.delete("region");
+      if (onParamsChange) {
+        // Use callback for instant updates
+        onParamsChange({ region });
       } else {
-        params.set("region", region);
+        // Fallback to URL navigation
+        const params = new URLSearchParams(searchParams);
+
+        if (region === "all") {
+          params.delete("region");
+        } else {
+          params.set("region", region);
+        }
+
+        params.delete("page");
+        router.push(`?${params.toString()}`);
       }
-
-      // Reset to page 1 when region changes
-      params.delete("page");
-
-      router.push(`?${params.toString()}`);
     },
-    [router, searchParams],
+    [onParamsChange, router, searchParams],
   );
 
   return (

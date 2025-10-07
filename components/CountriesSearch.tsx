@@ -6,12 +6,14 @@ interface CountriesSearchProps {
   className?: string;
   foundCount?: number;
   currentParams: CountriesParams;
+  onParamsChange?: (newParams: Partial<CountriesParams>) => void;
 }
 
 function CountriesSearch({
   className,
   foundCount = 0,
   currentParams,
+  onParamsChange,
 }: CountriesSearchProps) {
   return (
     <div
@@ -23,7 +25,10 @@ function CountriesSearch({
       <p className="text-foreground font-semibold">
         Found {foundCount} countries
       </p>
-      <SearchInput currentParams={currentParams} />
+      <SearchInput
+        currentParams={currentParams}
+        onParamsChange={onParamsChange}
+      />
     </div>
   );
 }
