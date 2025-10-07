@@ -1,0 +1,122 @@
+"use client";
+
+import { useRouter, useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { CountriesParams } from "@/lib/countries";
+import { useCallback } from "react";
+
+interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  currentParams: CountriesParams;
+}
+
+export default function Pagination({
+  currentPage,
+  totalPages,
+  currentParams,
+}: PaginationProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const handlePageChange = useCallback(
+    (page: number) => {
+      const params = new URLSearchParams(searchParams);
+
+      if (page === 1) {
+        params.delete("page");
+      } else {
+        params.set("page", page.toString());
+      }
+
+      router.push(`?${params.toString()}`);
+    },
+    [router, searchParams],
+  );
+
+  if (totalPages <= 1) return null;
+
+  // Generate page numbers to show
+  const getVisiblePages = () => {
+    const delta = 2; // Number of pages to show around current page
+    const pages: number[] = [];
+
+    for (
+      let i = Math.max(1, currentPage - delta);
+      i <= Math.min(totalPages, currentPage + delta);
+      i++
+    ) {
+      pages.push(i);
+    }
+
+    return pages;
+  };
+
+  const visiblePages = getVisiblePages();
+
+  return (
+    <div className="mt-6 flex items-center justify-center gap-2">
+      {/* Previous button */}
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+      >
+        Previous
+      </Button>
+
+      {/* First page if not visible */}
+      {visiblePages[0] > 1 && (
+        <>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(1)}
+          >
+            1
+          </Button>
+          {visiblePages[0] > 2 && <span className="px-2">...</span>}
+        </>
+      )}
+
+      {/* Visible page numbers */}
+      {visiblePages.map((page) => (
+        <Button
+          key={page}
+          variant={page === currentPage ? "default" : "outline"}
+          size="sm"
+          onClick={() => handlePageChange(page)}
+        >
+          {page}
+        </Button>
+      ))}
+
+      {/* Last page if not visible */}
+      {visiblePages[visiblePages.length - 1] < totalPages && (
+        <>
+          {visiblePages[visiblePages.length - 1] < totalPages - 1 && (
+            <span className="px-2">...</span>
+          )}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(totalPages)}
+          >
+            {totalPages}
+          </Button>
+        </>
+      )}
+
+      {/* Next button */}
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+      >
+        Next
+      </Button>
+    </div>
+  );
+}

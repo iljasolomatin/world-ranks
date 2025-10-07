@@ -1,11 +1,18 @@
 import SearchInput from "@/components/SearchInput";
 import { cn } from "@/lib/utils";
+import { CountriesParams } from "@/lib/countries";
 
 interface CountriesSearchProps {
   className?: string;
+  foundCount?: number;
+  currentParams: CountriesParams;
 }
 
-function CountriesSearch({ className }: CountriesSearchProps) {
+function CountriesSearch({
+  className,
+  foundCount = 0,
+  currentParams,
+}: CountriesSearchProps) {
   return (
     <div
       className={cn(
@@ -13,8 +20,10 @@ function CountriesSearch({ className }: CountriesSearchProps) {
         className,
       )}
     >
-      <p className="text-foreground font-semibold">Found X countries</p>
-      <SearchInput />
+      <p className="text-foreground font-semibold">
+        Found {foundCount} countries
+      </p>
+      <SearchInput currentParams={currentParams} />
     </div>
   );
 }
