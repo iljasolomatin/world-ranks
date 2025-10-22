@@ -20,10 +20,7 @@ export default function CountriesTable({ countries }: CountriesTableProps) {
         </thead>
         <tbody>
           {countries.map((country) => (
-            <tr
-              key={country.name.common}
-              className="hover:bg-muted/50 border-b"
-            >
+            <tr key={country.name.common} className="hover:bg-muted/50">
               <td className="p-4">
                 <Image
                   src={country.flags.svg}

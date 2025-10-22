@@ -123,11 +123,11 @@ export default function CountriesContainer({
 
       <div className="flex min-w-0 flex-col gap-4 md:col-start-2">
         <CountriesTable countries={countries} />
-        {/* <Pagination
+        <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={(page) => updateURL({ page })}
-        /> */}
+        />
       </div>
     </>
   );
