@@ -1,8 +1,7 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { CountriesParams } from "@/lib/countries";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
 interface PaginationProps {

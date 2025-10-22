@@ -4,32 +4,32 @@ import RegionFilter from "@/components/RegionFilter";
 import SortSelect from "@/components/SortSelect";
 import StatusFilter from "@/components/StatusFilter";
 import Pagination from "@/components/Pagination";
-import { 
-  getCountriesData, 
-  processCountries, 
-  CountriesParams 
+import {
+  getCountriesData,
+  processCountries,
+  CountriesParams,
 } from "@/lib/countries";
 
 interface CountriesDisplayProps {
   params: CountriesParams;
 }
 
-export default async function CountriesDisplay({ params }: CountriesDisplayProps) {
+export default async function CountriesDisplay({
+  params,
+}: CountriesDisplayProps) {
   // Fetch all countries data
   const allCountries = await getCountriesData();
-  
+
   // Process countries based on params (filter, sort, paginate)
-  const {
-    countries,
-    totalCount,
-    totalPages,
-    currentPage,
-  } = processCountries(allCountries, params);
+  const { countries, totalCount, totalPages, currentPage } = processCountries(
+    allCountries,
+    params,
+  );
 
   return (
     <>
-      <CountriesSearch 
-        className="sm:col-span-2" 
+      <CountriesSearch
+        className="sm:col-span-2"
         foundCount={totalCount}
         currentParams={params}
       />
@@ -41,13 +41,9 @@ export default async function CountriesDisplay({ params }: CountriesDisplayProps
         <StatusFilter currentParams={params} />
       </div>
 
-      <div className="sm:col-start-2 space-y-4">
+      <div className="space-y-4 sm:col-start-2">
         <CountriesTable countries={countries} />
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          currentParams={params}
-        />
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
       </div>
     </>
   );
