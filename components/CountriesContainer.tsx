@@ -103,13 +103,13 @@ export default function CountriesContainer({
   return (
     <>
       <CountriesSearch
-        className="sm:col-span-2"
+        className="md:col-span-2"
         foundCount={totalCount}
         currentParams={currentParams}
         onParamsChange={updateURL}
       />
 
-      <div className="flex flex-col gap-4">
+      <div className="flex max-w-96 flex-col gap-4">
         <SortSelect currentParams={currentParams} onParamsChange={updateURL} />
         <RegionFilter
           currentParams={currentParams}
@@ -121,13 +121,13 @@ export default function CountriesContainer({
         />
       </div>
 
-      <div className="flex flex-col gap-4 sm:col-start-2">
+      <div className="flex min-w-0 flex-col gap-4 md:col-start-2">
         <CountriesTable countries={countries} />
-        <Pagination
+        {/* <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={(page) => updateURL({ page })}
-        />
+        /> */}
       </div>
     </>
   );

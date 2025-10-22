@@ -14,7 +14,7 @@ export default function CountriesTable({ countries }: CountriesTableProps) {
             <th className="p-4 text-left">Flag</th>
             <th className="p-4 text-left">Name</th>
             <th className="p-4 text-left">Population</th>
-            <th className="p-4 text-left">Area</th>
+            <th className="p-4 text-left">Area (km²)</th>
             <th className="p-4 text-left">Region</th>
           </tr>
         </thead>
@@ -38,7 +38,7 @@ export default function CountriesTable({ countries }: CountriesTableProps) {
                 {country.population?.toLocaleString() || "N/A"}
               </td>
               <td className="p-4 text-left">
-                {country.area ? `${country.area.toLocaleString()} km²` : "N/A"}
+                {country.area ? `${country.area.toLocaleString()}` : "N/A"}
               </td>
               <td className="p-4 text-left">{country.region}</td>
             </tr>

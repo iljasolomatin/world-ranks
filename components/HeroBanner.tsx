@@ -10,12 +10,12 @@ function HeroBanner() {
         fill
         quality={75}
         placeholder="blur"
-        className="mt-14 object-cover object-center"
+        className="mt-7 object-cover object-center md:mt-0"
         alt="Aerial view of Earth at night"
       />
 
       {/* LOGO */}
-      <div className="absolute top-16 z-10 flex gap-1.5 text-2xl font-bold text-[#d2d5da] md:text-3xl">
+      <div className="absolute top-16 z-10 flex gap-1.5 text-2xl font-bold text-[#d2d5da] md:top-28 md:text-3xl">
         <Image
           src={logo}
           width={24}
