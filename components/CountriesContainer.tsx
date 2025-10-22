@@ -101,9 +101,7 @@ export default function CountriesContainer({
   );
 
   return (
-    <div
-      className={`transition-opacity duration-150 ${isPending ? "opacity-70" : "opacity-100"}`}
-    >
+    <>
       <CountriesSearch
         className="sm:col-span-2"
         foundCount={totalCount}
@@ -131,6 +129,6 @@ export default function CountriesContainer({
           onPageChange={(page) => updateURL({ page })}
         />
       </div>
-    </div>
+    </>
   );
 }

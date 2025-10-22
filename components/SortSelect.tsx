@@ -46,10 +46,10 @@ function SortSelect({ currentParams, onParamsChange }: SortSelectProps) {
   const currentValue = `${currentParams.sortBy}:${currentParams.sortOrder}`;
 
   return (
-    <div>
+    <div className="mb-4 flex flex-col gap-4">
       <Label htmlFor="sortBy">Sort by</Label>
       <Select value={currentValue} onValueChange={handleSortChange}>
-        <SelectTrigger className="mb-4 w-full max-w-96 sm:max-w-full">
+        <SelectTrigger className="w-full max-w-96 sm:max-w-full">
           <SelectValue placeholder="Population" />
         </SelectTrigger>
         <SelectContent>
