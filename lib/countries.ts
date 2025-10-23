@@ -10,7 +10,7 @@ export interface Country {
   area: number;
   region: string;
   independent?: boolean;
-  cioc?: string;
+  cca3?: string;
 }
 
 export type SortField = "name" | "population" | "area" | "region";
@@ -53,7 +53,7 @@ export async function getCountriesData(): Promise<Country[]> {
           "area",
           "region",
           "independent",
-          "cioc",
+          "cca3",
         ],
       },
       {

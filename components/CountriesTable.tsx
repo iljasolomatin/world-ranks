@@ -30,7 +30,7 @@ export default function CountriesTable({ countries }: CountriesTableProps) {
             <tr
               key={country.name.common}
               className="hover:bg-secondary/20"
-              onClick={() => handleRowClick(country.cioc!)}
+              onClick={() => handleRowClick(country.cca3!)}
             >
               <td className="p-4">
                 <Image
