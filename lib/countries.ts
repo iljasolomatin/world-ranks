@@ -1,4 +1,7 @@
-import { getCountries as getCountriesAPI } from "@yusifaliyevpro/countries";
+import {
+  getCountries as getCountriesAPI,
+  getCountriesByCodes as getCountryByCodeAPI,
+} from "@yusifaliyevpro/countries";
 
 export interface Country {
   name: { common: string };
@@ -7,6 +10,7 @@ export interface Country {
   area: number;
   region: string;
   independent?: boolean;
+  cioc?: string;
 }
 
 export type SortField = "name" | "population" | "area" | "region";
@@ -49,6 +53,7 @@ export async function getCountriesData(): Promise<Country[]> {
           "area",
           "region",
           "independent",
+          "cioc",
         ],
       },
       {
@@ -60,6 +65,38 @@ export async function getCountriesData(): Promise<Country[]> {
     return countries || [];
   } catch (error) {
     console.error("Error fetching countries:", error);
+    return [];
+  }
+}
+
+export async function getCountriesByCodes(codes: string[]): Promise<Country[]> {
+  try {
+    const countries = await getCountryByCodeAPI(
+      {
+        codes,
+        fields: [
+          "name",
+          "flags",
+          "population",
+          "area",
+          "region",
+          "capital",
+          "subregion",
+          "languages",
+          "currencies",
+          "continents",
+          "borders",
+        ],
+      },
+      {
+        next: { revalidate: 7 * 24 * 3600 },
+        cache: "force-cache",
+      },
+    );
+
+    return countries || [];
+  } catch (error) {
+    console.error("Error fetching countries by codes:", error);
     return [];
   }
 }

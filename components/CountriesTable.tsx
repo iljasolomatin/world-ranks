@@ -1,11 +1,18 @@
 import Image from "next/image";
 import { Country } from "@/lib/countries";
+import { useRouter } from "next/navigation";
 
 interface CountriesTableProps {
   countries: Country[];
 }
 
 export default function CountriesTable({ countries }: CountriesTableProps) {
+  const router = useRouter();
+
+  const handleRowClick = (cioc: string) => {
+    router.push(`/country/${cioc}`);
+  };
+
   return (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse">
@@ -20,7 +27,11 @@ export default function CountriesTable({ countries }: CountriesTableProps) {
         </thead>
         <tbody>
           {countries.map((country) => (
-            <tr key={country.name.common} className="hover:bg-secondary/20">
+            <tr
+              key={country.name.common}
+              className="hover:bg-secondary/20"
+              onClick={() => handleRowClick(country.cioc!)}
+            >
               <td className="p-4">
                 <Image
                   src={country.flags.svg}

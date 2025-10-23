@@ -5,6 +5,7 @@ import { Be_Vietnam_Pro } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import HeroBanner from "@/components/HeroBanner";
 import { ModeToggle } from "@/components/ModeToggle";
+import Footer from "@/components/Footer";
 
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-be-vietnam-pro",
@@ -42,6 +43,8 @@ export default function RootLayout({
           <HeroBanner />
 
           {children}
+
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
