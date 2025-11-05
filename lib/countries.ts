@@ -4,13 +4,19 @@ import {
 } from "@yusifaliyevpro/countries";
 
 export interface Country {
-  name: { common: string };
+  name: { common: string; official: string };
   flags: { svg: string };
   population: number;
   area: number;
   region: string;
   independent?: boolean;
   cca3?: string;
+  currencies?: { [key: string]: { name: string; symbol: string } };
+  capital?: string[];
+  subregion?: string;
+  languages?: { [key: string]: string };
+  continents?: string[];
+  borders?: string[];
 }
 
 export type SortField = "name" | "population" | "area" | "region";
