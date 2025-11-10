@@ -35,13 +35,13 @@ async function page({ params }: Params) {
           className="mx-auto rounded-lg object-cover"
         />
       </div>
-      <div>
-        <h1 className="text-center text-3xl font-semibold">{name.common}</h1>
-        <p className="text-center">{name.official}</p>
+      <div className="text-center">
+        <h1 className="text-3xl font-semibold">{name.common}</h1>
+        <p>{name.official}</p>
       </div>
       <div className="flex items-center justify-around">
-        <p>Population | {population}</p>
-        <p>Area | {area}</p>
+        <p>Population | {population.toLocaleString()}</p>
+        <p>Area | {area.toLocaleString()}</p>
       </div>
       <p>{capital}</p>
       <p>{subregion}</p>
