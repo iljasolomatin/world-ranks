@@ -35,9 +35,14 @@ async function page({ params }: Params) {
           index === array.length - 1 ? `${language}` : `${language}, `,
         )}
       </p> */}
-      <p>{Object.values(languages).join(", ")}</p>
+      <p>{Object.values(languages ?? {}).join(", ")}</p>
+      <p>
+        {Object.values(currencies ?? {})
+          .map((currency) => currency.name)
+          .join(", ")}
+      </p>
       <p>{continents?.join(", ")}</p>
-      <p>{borders?.join(", ")}</p>
+      <p>{borders?.join(", ") || "N/A"}</p>
     </div>
   );
 }
