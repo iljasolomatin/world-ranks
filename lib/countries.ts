@@ -6,9 +6,9 @@ import {
 export interface Country {
   name: { common: string; official: string };
   flags: { svg: string };
-  population: number;
-  area: number;
-  region: string;
+  population?: number;
+  area?: number;
+  region?: string;
   independent?: boolean;
   cca3?: string;
   currencies?: { [key: string]: { name: string; symbol: string } };
@@ -107,6 +107,26 @@ export async function getCountriesByCodes(codes: string[]): Promise<Country[]> {
   }
 }
 
+export async function getBorderCountries(codes: string[]): Promise<Country[]> {
+  try {
+    const countries = await getCountryByCodeAPI(
+      {
+        codes,
+        fields: ["name", "flags"],
+      },
+      {
+        next: { revalidate: 7 * 24 * 3600 },
+        cache: "force-cache",
+      },
+    );
+
+    return countries || [];
+  } catch (error) {
+    console.error("Error fetching border countries:", error);
+    return [];
+  }
+}
+
 export function filterCountries(
   countries: Country[],
   params: CountriesParams,
@@ -119,7 +139,7 @@ export function filterCountries(
     filtered = filtered.filter(
       (country) =>
         country.name.common.toLowerCase().includes(searchTerm) ||
-        country.region.toLowerCase().includes(searchTerm),
+        country.region?.toLowerCase().includes(searchTerm),
     );
   }
 
@@ -163,8 +183,8 @@ export function sortCountries(
         bValue = b.area || 0;
         break;
       case "region":
-        aValue = a.region.toLowerCase();
-        bValue = b.region.toLowerCase();
+        aValue = a.region?.toLowerCase() || "";
+        bValue = b.region?.toLowerCase() || "";
         break;
       default:
         return 0;
